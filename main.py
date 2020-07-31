@@ -20,8 +20,10 @@ __credits__ = ["Daniel Mascarenhas", "Gersiano Santana"]                      # 
 # followed by third-party modules
 # followed by any changes to the path
 # your own modules.
+import subprocess
+import platform
 
-class relatorio:
+class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
 
     trouble = '<<<<<<<<< TROUBLETEXT >>>>>>>>>'
@@ -29,26 +31,36 @@ class relatorio:
         self.area = area
         self.tipo = tipo
 
-    def set_descricao(descricao):
+    def set_descricao(self, descricao):
         self.descricao = descricao
 
-    def set_procedimentos(procedimentos):
+    def set_procedimentos(self, procedimentos):
         self.procedimentos = procedimentos
 
-    def set_infraestrutura(infraestrutura):
+    def set_infraestrutura(self, infraestrutura):
         self.infraestrutura = infraestrutura
 
-    def set_situacao(situacao):
+    def set_situacao(self, situacao):
         self.situacao = situacao
 
-    def set_psi(psi):
+    def set_psi(self, psi):
         self.psi = psi
 
-    def contar_espacos():
+    def contar_espacos(self):
         pass
 
-    def completar_espacos():
+    def completar_espacos(self):
         pass
+
+    def gerar_texto(self):
+        print(self.descricao + '\n' + self.procedimentos + '\n' + self.infraestrutura)
+
+    def copy2clip(self, txt):
+        if platform.system() == 'Linux':
+            cmd = 'echo ' + txt.strip() + '|xclip'
+        else:
+            cmd = 'echo ' + txt.strip() + '|clip'
+        return subprocess.check_call(cmd, shell=True)
 
 def main(args=None):
     pass
