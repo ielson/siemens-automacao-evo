@@ -193,7 +193,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_10">
      <item>
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="escolherFerramenta">
        <item>
         <property name="text">
          <string>Adicionar ferramenta</string>
@@ -202,10 +202,10 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit_3"/>
+      <widget class="QPlainTextEdit" name="preencherPSI"/>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit_4"/>
+      <widget class="QPlainTextEdit" name="preencherInfra"/>
      </item>
     </layout>
    </item>

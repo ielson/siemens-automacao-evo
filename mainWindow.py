@@ -7,6 +7,9 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.escolherFerramenta.setVisible(False)
+        self.preencherInfra.setVisible(False)
+        self.preencherPSI.setVisible(False)
 
 
 app = QtWidgets.QApplication(sys.argv)
