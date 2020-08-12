@@ -53,18 +53,30 @@ class Relatorio:
         pass
 
     def gerar_texto(self):
-        print(self.descricao + '\n' + self.procedimentos + '\n' + self.infraestrutura)
+        return(self.descricao + '\n' + self.procedimentos + '\n' + self.infraestrutura)
 
     def copy2clip(self, txt):
         if platform.system() == 'Linux':
+            print('txt: \n' + txt)
             cmd = 'echo ' + txt.strip() + '|xclip'
         else:
             cmd = 'echo ' + txt.strip() + '|clip'
         return subprocess.check_call(cmd, shell=True)
 
 def main(args=None):
-    pass
-
+    relatorio1 = Relatorio('imagem', 'manutenção')
+    descricao = input('Digite a descrição do chamado: ')
+    procedimentos = input('Digite a procedimentos do chamado: ')
+    infraestrutura = input('Digite a infraestrutura do chamado: ')
+    situacao = input('Digite a situação do chamado: ')
+    psi = input('Digite a psi do chamado: ')
+    relatorio1.set_descricao(descricao)
+    relatorio1.set_procedimentos(procedimentos)
+    relatorio1.set_infraestrutura(infraestrutura)
+    relatorio1.set_situacao(situacao)
+    relatorio1.set_psi(psi)
+    relatorio = relatorio1.gerar_texto()
+    relatorio1.copy2clip(relatorio)
 
 
 if __name__ == "__main__":
