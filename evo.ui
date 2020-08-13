@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>640</height>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -202,10 +202,32 @@
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="preencherPSI"/>
+      <layout class="QVBoxLayout" name="preencherPSI">
+       <item>
+        <widget class="QLabel" name="preencherPSILA">
+         <property name="text">
+          <string>Preencha com as informações do PSI</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="preencherPSITE"/>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="preencherInfra"/>
+      <layout class="QVBoxLayout" name="preencherInfra">
+       <item>
+        <widget class="QLabel" name="preencherInfraLA">
+         <property name="text">
+          <string>Relate os problemas de infraestrutura encontrados</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="preencherInfraTE"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
