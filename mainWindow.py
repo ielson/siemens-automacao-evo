@@ -10,6 +10,15 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.escolherFerramenta.setVisible(False)
         self.preencherInfra.setVisible(False)
         self.preencherPSI.setVisible(False)
+        self.infraNotOk.toggled.connect(self.checkButton)
+
+
+    def checkButton(self):
+        print("button pressed")
+        if self.infraNotOk.isChecked() == True:
+            self.preencherInfra.setVisible(True)
+        else:
+            self.preencherInfra.setVisible(False)
 
 
 app = QtWidgets.QApplication(sys.argv)

@@ -126,7 +126,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QCheckBox" name="ferramentaUtilizada">
          <property name="text">
           <string>SIM</string>
          </property>
@@ -144,7 +144,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_3">
+        <widget class="QCheckBox" name="necessarioFollowUp">
          <property name="text">
           <string>SIM</string>
          </property>
@@ -162,9 +162,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QCheckBox" name="PSI">
          <property name="text">
-          <string>E&amp;xistente</string>
+          <string>Existente</string>
          </property>
         </widget>
        </item>
@@ -180,9 +180,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_4">
+        <widget class="QCheckBox" name="infraNotOk">
          <property name="text">
-          <string>Não O&amp;k</string>
+          <string>Não OK</string>
          </property>
         </widget>
        </item>
