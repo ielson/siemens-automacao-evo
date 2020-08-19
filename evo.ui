@@ -196,9 +196,22 @@
       <widget class="QComboBox" name="escolherFerramenta">
        <item>
         <property name="text">
-         <string>Adicionar ferramenta</string>
+         <string>Multímetro Fluke - 03376589</string>
         </property>
        </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="avisoFerramenta">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Atenção ferramenta próxima ao vencimento (15/10)</string>
+       </property>
       </widget>
      </item>
      <item>

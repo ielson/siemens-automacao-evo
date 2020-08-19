@@ -14,6 +14,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.preencherInfraTE.setVisible(False)
         self.preencherPSILA.setVisible(False)
         self.preencherPSITE.setVisible(False)
+        self.avisoFerramenta.setVisible(False)
         self.infraNotOk.toggled.connect(self.checkButtonInfra)
         self.PSI.toggled.connect(self.checkButtonPSI)
         self.ferramentaUtilizada.toggled.connect(self.checkButtonFerramenta)
@@ -47,8 +48,10 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
     def checkButtonFerramenta(self):
         if self.ferramentaUtilizada.isChecked() == True:
             self.escolherFerramenta.setVisible(True)
+            self.avisoFerramenta.setVisible(True)
         else:
             self.escolherFerramenta.setVisible(False)
+            self.avisoFerramenta.setVisible(False)
 
     def checkButtonFollowUp(self):
         if self.necessarioFollowUp.isChecked():
@@ -68,6 +71,8 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         novoRelatorio.set_psi(self.getPsi())
         
         texto = novoRelatorio.gerar_texto()
+        clipboard = QtWidgets.QApplication.clipboard()
+        clipboard.setText(texto)
         print(texto)
 
     def getInfra(self):
