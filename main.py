@@ -53,7 +53,8 @@ class Relatorio:
         pass
 
     def gerar_texto(self):
-        return(self.descricao + '\n' + self.procedimentos + '\n' + self.infraestrutura)
+        texto = "Descricao: " + self.descricao + "\n" + "Procedimentos realizados: " + self.procedimentos  + "\n" + "Infraestrutura: " + self.infraestrutura + "\n" +"Situacao Atual: " + self.situacao + "\n" +"PSI: " + self.psi 
+        return(texto)
 
     def copy2clip(self, txt):
         if platform.system() == 'Linux':
