@@ -3,6 +3,7 @@ import main
 
 from PyQt5 import QtWidgets, uic
 from evoWindow import Ui_Form
+from chooseWindow import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QWidget, Ui_Form):
@@ -22,7 +23,8 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.infra = "Ok"
         self.psi = "Ok"
         self.situacao = "Finalizado"
-
+        self.clipboard = QtWidgets.QApplication.clipboard()
+        self.tipoCB.activated[str].connect(self.tipoEscolhido)
        
 
     def checkButtonInfra(self):
@@ -69,10 +71,9 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         novoRelatorio.set_infraestrutura(self.getInfra())
         novoRelatorio.set_situacao(self.checkButtonFollowUp())
         novoRelatorio.set_psi(self.getPsi())
-        
         texto = novoRelatorio.gerar_texto()
-        clipboard = QtWidgets.QApplication.clipboard()
-        clipboard.setText(texto)
+
+        self.clipboard.setText(texto)
         print(texto)
 
     def getInfra(self):
@@ -82,15 +83,32 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
 
     def getPsi(self):
         if self.psi == "Not Ok":
+            print("Not ok")
             self.psi = self.preencherPSITE.toPlainText()
+        else:
+            self.psi = ('Não', 'Não', 'Não', 'Não aplicável', 'Não aplicável')
         return self.psi
 
+    def tipoEscolhido(self, tipo):
+        if tipo == "Preventiva":
+            texto_preventiva = '''Houve a troca de algum kit?
+Qual o nível atual de hélio da máquina?
+Houve algum ERDU Short nos últimos 2 meses? '''
+            self.procedimentosTE.setPlainText(texto_preventiva)
 
-
-
+class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self, *args, obj=None, **kwargs):
+        super(ChooserWindow, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+        self.scriptPB.clicked.connect(self.mostrarScript)
+        
+    def mostrarScript(self):
+        self.novaJanela = MainWindow()
+        self.novaJanela.show()
+        print("mostrarJanela") 
 
 app = QtWidgets.QApplication(sys.argv)
 
-window = MainWindow()
+window = ChooserWindow()
 window.show()
 app.exec()

@@ -27,6 +27,12 @@ class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
 
     trouble = '<<<<<<<<< TROUBLETEXT >>>>>>>>>'
+    completar= '''*****************************************************
+*****************************************************
+*****************************************************
+*****************************************************
+*****************************************************'''
+
     def __init__(self, area='imagem', tipo='manutencao'):
         self.area = area
         self.tipo = tipo
@@ -44,7 +50,15 @@ class Relatorio:
         self.situacao = situacao
 
     def set_psi(self, psi):
-        self.psi = psi
+        psi_padrao = '''
+O Equipamento causou ou contribuiu para a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa? {} 
+Poderia o mau funcionamento do Equipamento causar a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa caso ocorra novamente? {} 
+Existe algum outro Problema Potencial de Segurança (PSI) considerando os requerimentos do GD 39? {} 
+Caso se trate de um PSI inserir neste campo o Escalonamento ICDxxxx ou PMxxxx. {} 
+Caso haja um problema de segurança, o cliente foi informado sobre tal problema e todos os riscos atrelados ao uso do equipamento nas condições apresentadas, tendo ele decidido se o equipamento continuará ou não em operação? {} 
+        '''
+        # * to unpack the tuple
+        self.psi = psi_padrao.format(*psi)
 
     def contar_espacos(self):
         pass
@@ -53,16 +67,8 @@ class Relatorio:
         pass
 
     def gerar_texto(self):
-        texto = "Descricao: " + self.descricao + "\n" + "Procedimentos realizados: " + self.procedimentos  + "\n" + "Infraestrutura: " + self.infraestrutura + "\n" +"Situacao Atual: " + self.situacao + "\n" +"PSI: " + self.psi 
+        texto = "Descricao: " + self.descricao + "\n" + "Procedimentos: " + self.procedimentos  + "\n" + "Infra. do site: " + self.infraestrutura + "\n" +"Conclusão: " + self.situacao + "\n" +self.completar + '\n' + self.trouble +  self.psi 
         return(texto)
-
-    def copy2clip(self, txt):
-        if platform.system() == 'Linux':
-            print('txt: \n' + txt)
-            cmd = 'echo ' + txt.strip() + '|xclip'
-        else:
-            cmd = 'echo ' + txt.strip() + '|clip'
-        return subprocess.check_call(cmd, shell=True)
 
 def main(args=None):
     relatorio1 = Relatorio('imagem', 'manutenção')
