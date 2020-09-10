@@ -46,7 +46,11 @@ class Relatorio:
     def set_psi(self, psi):
         # * to unpack the tuple
         #  self.psi = psi_padrao.format(*psi)
-        pass
+        self.psi1 = psi[0]
+        self.psi2 = psi[1]
+        self.psi3 = psi[2]
+        self.psi4 = psi[3]
+        self.psi5 = psi[4]
 
     def contar_espacos(self):
         pass
@@ -57,7 +61,7 @@ class Relatorio:
     def gerar_texto(self):
         with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
             modelo = Template(arquivo.read())
-        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1='nao', psi2='nao', psi3='nao', psi4='nao', psi5='nao', pecas='nenhuma', instrumentos='nenhum')
+        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas='nenhuma', instrumentos='nenhum')
         relatorio = modelo.substitute(dados)
         return(relatorio)
 

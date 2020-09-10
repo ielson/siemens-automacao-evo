@@ -60,7 +60,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.psi4TE.setVisible(True)
             self.psi5LA.setVisible(True)
             self.psi5CB.setVisible(True)
-            self.resize(480, 1024)
+            self.resize(880, 1024)
         else:
             self.preencherPSILA.setVisible(False)
             self.psi = "Ok"
@@ -111,11 +111,26 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         return self.infra
 
     def getPsi(self):
-        if self.psi == "Not Ok":
-            print("Not ok")
-            #self.psi = self.preencherPSITE.toPlainText()
+        if self.psi1CB.isChecked() == True:
+            psi1 = "Sim"
         else:
-            self.psi = ('Não', 'Não', 'Não', 'Não aplicável', 'Não aplicável')
+            psi1 = 'Não'
+        if self.psi2CB.isChecked() == True:
+            psi2 = "Sim"
+        else:
+            psi2 = 'Não'
+        if self.psi3CB.isChecked() == True:
+            psi3 = "Sim"
+        else:
+            psi3 = 'Não'
+        psi4 = self.psi4TE.toPlainText()
+        if psi4=="":
+            psi4='Não Aplicável'
+        if self.psi5CB.isChecked() == True:
+            psi5 = "Sim"
+        else:
+            psi5 = 'Não'
+        self.psi = (psi1, psi2, psi3, psi4, psi5)
         return self.psi
 
     def tipoEscolhido(self, tipo):
