@@ -4,6 +4,21 @@ import main
 from PyQt5 import QtWidgets, uic
 from evoWindow import Ui_Form
 from chooseWindow import Ui_MainWindow
+from adicionarFerramentaUI import Ui_Dialog
+
+class FerramentaDialog(QtWidgets.QDialog, Ui_Dialog):
+    def __init__(self, *args,**kwargs):
+        super(FerramentaDialog, self).__init__(*args, **kwargs)
+        self.setupUi(self)
+        self.buttonBox.accepted.connect(self.criarFerramenta)
+        self.buttonBox.rejected.connect(self.fecharDialog)
+
+    def criarFerramenta(self):
+        print("ferramenta criada")
+
+    def fecharDialog(self):
+        print("fechando dialog")
+
 
 
 class MainWindow(QtWidgets.QWidget, Ui_Form):
@@ -24,11 +39,15 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.psi4TE.setVisible(False)
         self.psi5LA.setVisible(False)
         self.psi5CB.setVisible(False)
+        self.pecasTE.setVisible(False)
+        self.pecasLA.setVisible(False)
         self.avisoFerramenta.setVisible(False)
         self.infraNotOk.toggled.connect(self.checkButtonInfra)
         self.PSI.toggled.connect(self.checkButtonPSI)
         self.ferramentaUtilizada.toggled.connect(self.checkButtonFerramenta)
         self.copiarRelatorio.clicked.connect(self.buttonCopiar)
+        self.pecasCB.toggled.connect(self.checkButtonPecas)
+        self.escolherFerramenta.activated[str].connect(self.checkEscolherFerramentas)
         self.infra = "Ok"
         self.psi = "Ok"
         self.situacao = "Finalizado"
@@ -46,10 +65,28 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.preencherInfraLA.setVisible(False)
             self.infra = "Ok"
 
+    def checkEscolherFerramentas(self, ferramenta):
+        if ferramenta == "Adicionar nova ferramenta":
+            print("Nova ferramenta a ser adicionada")
+            addFerramentaDiag = FerramentaDialog(self)
+            if addFerramentaDiag.exec_():
+                print("Success!")
+            else:
+                print("Cancel!")
+        else:
+            print(ferramenta)
+    
+    def checkButtonPecas(self):
+        if self.pecasCB.isChecked():
+            self.pecasTE.setVisible(True)
+            self.pecasLA.setVisible(True)
+        else:
+            self.pecasTE.setVisible(False)
+            self.pecasLA.setVisible(False)
+
     def checkButtonPSI(self):
         if self.PSI.isChecked() == True:
             self.preencherPSILA.setVisible(True)
-            self.psi = "Not Ok"
             self.psi1LA.setVisible(True)
             self.psi1CB.setVisible(True)
             self.psi2LA.setVisible(True)
@@ -61,9 +98,9 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.psi5LA.setVisible(True)
             self.psi5CB.setVisible(True)
             self.resize(880, 1024)
+            self.pecasCB.setStyleSheet("margin-left:400%")
         else:
             self.preencherPSILA.setVisible(False)
-            self.psi = "Ok"
             self.psi1LA.setVisible(False)
             self.psi1CB.setVisible(False)
             self.psi2LA.setVisible(False)
@@ -75,6 +112,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.psi5LA.setVisible(False)
             self.psi5CB.setVisible(False)
             self.resize(480, 826)
+            self.pecasCB.setStyleSheet("margin-left:200%")
 
     def checkButtonFerramenta(self):
         if self.ferramentaUtilizada.isChecked() == True:
@@ -100,6 +138,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         novoRelatorio.set_infraestrutura(self.getInfra())
         novoRelatorio.set_situacao(self.checkButtonFollowUp())
         novoRelatorio.set_psi(self.getPsi())
+        novoRelatorio.set_pecas(self.getPecas())
         texto = novoRelatorio.gerar_texto()
 
         self.clipboard.setText(texto)
@@ -109,6 +148,12 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         if self.infra == "Not Ok":
             self.infra = self.preencherInfraTE.toPlainText()
         return self.infra
+
+    def getPecas(self):
+        if self.pecasTE.toPlainText() == '':
+            return('Nenhuma')
+        else:
+            return self.pecasTE.toPlainText()
 
     def getPsi(self):
         if self.psi1CB.isChecked() == True:

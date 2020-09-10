@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>826</height>
+    <width>625</width>
+    <height>1020</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -188,15 +188,47 @@
        </item>
       </layout>
      </item>
+     <item row="2" column="0" colspan="2">
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Foram consumidas peças nesse atendimento?</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="pecasCB">
+         <property name="styleSheet">
+          <string notr="true">margin-left:200%;</string>
+         </property>
+         <property name="text">
+          <string>Sim</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_10">
      <item>
       <widget class="QComboBox" name="escolherFerramenta">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
        <item>
         <property name="text">
          <string>Multímetro Fluke - 03376589</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Adicionar nova ferramenta</string>
         </property>
        </item>
       </widget>
@@ -216,6 +248,39 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="preencherPSI">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="pecasLA">
+           <property name="text">
+            <string>Quais peças foram consumidas?</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="pecasTE">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>220</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Bobina X (PN ########)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QLabel" name="preencherPSILA">
          <property name="text">

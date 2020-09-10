@@ -52,6 +52,9 @@ class Relatorio:
         self.psi4 = psi[3]
         self.psi5 = psi[4]
 
+    def set_pecas(self, pecas):
+        self.pecas = pecas
+
     def contar_espacos(self):
         pass
 
@@ -61,7 +64,7 @@ class Relatorio:
     def gerar_texto(self):
         with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
             modelo = Template(arquivo.read())
-        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas='nenhuma', instrumentos='nenhum')
+        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos='nenhum')
         relatorio = modelo.substitute(dados)
         return(relatorio)
 
