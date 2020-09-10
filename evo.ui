@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>798</height>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -224,7 +224,126 @@
         </widget>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="preencherPSITE"/>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="psi1LA">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>O Equipamento causou ou contribuiu para a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa?</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="psi1CB">
+           <property name="text">
+            <string>Sim</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="psi2LA">
+         <property name="text">
+          <string>Poderia o mau funcionamento do Equipamento causar a morte ou grave ferimento ao usuário, paciente  ou qualquer outra pessoa caso ocorra novamente?</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="psi2CB">
+         <property name="text">
+          <string>Sim</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="psi3LA">
+         <property name="text">
+          <string>Existe algum outro Problema Potencial de Segurança (PSI) considerando os requerimentos do GD 39?</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="psi3CB">
+         <property name="text">
+          <string>Sim</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="psi4LA">
+         <property name="text">
+          <string>Caso se trate de um PSI inserir neste campo o Escalonamento ICDxxxx ou PMxxxx.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="psi4TE"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="psi5LA">
+         <property name="text">
+          <string>Caso haja um problema de segurança, o cliente foi informado sobre tal problema e todos os riscos atrelados ao uso do equipamento nas condições apresentadas, tendo ele decidido se o equipamento continuará ou não em operação?</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="psi5CB">
+         <property name="text">
+          <string>Sim</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -234,6 +353,9 @@
         <widget class="QLabel" name="preencherInfraLA">
          <property name="text">
           <string>Relate os problemas de infraestrutura encontrados</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>

@@ -14,7 +14,16 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.preencherInfraLA.setVisible(False)
         self.preencherInfraTE.setVisible(False)
         self.preencherPSILA.setVisible(False)
-        self.preencherPSITE.setVisible(False)
+        self.psi1LA.setVisible(False)
+        self.psi1CB.setVisible(False)
+        self.psi2LA.setVisible(False)
+        self.psi2CB.setVisible(False)
+        self.psi3LA.setVisible(False)
+        self.psi3CB.setVisible(False)
+        self.psi4LA.setVisible(False)
+        self.psi4TE.setVisible(False)
+        self.psi5LA.setVisible(False)
+        self.psi5CB.setVisible(False)
         self.avisoFerramenta.setVisible(False)
         self.infraNotOk.toggled.connect(self.checkButtonInfra)
         self.PSI.toggled.connect(self.checkButtonPSI)
@@ -39,13 +48,33 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
 
     def checkButtonPSI(self):
         if self.PSI.isChecked() == True:
-            self.preencherPSITE.setVisible(True)
             self.preencherPSILA.setVisible(True)
             self.psi = "Not Ok"
+            self.psi1LA.setVisible(True)
+            self.psi1CB.setVisible(True)
+            self.psi2LA.setVisible(True)
+            self.psi2CB.setVisible(True)
+            self.psi3LA.setVisible(True)
+            self.psi3CB.setVisible(True)
+            self.psi4LA.setVisible(True)
+            self.psi4TE.setVisible(True)
+            self.psi5LA.setVisible(True)
+            self.psi5CB.setVisible(True)
+            self.resize(480, 1024)
         else:
-            self.preencherPSITE.setVisible(False)
             self.preencherPSILA.setVisible(False)
             self.psi = "Ok"
+            self.psi1LA.setVisible(False)
+            self.psi1CB.setVisible(False)
+            self.psi2LA.setVisible(False)
+            self.psi2CB.setVisible(False)
+            self.psi3LA.setVisible(False)
+            self.psi3CB.setVisible(False)
+            self.psi4LA.setVisible(False)
+            self.psi4TE.setVisible(False)
+            self.psi5LA.setVisible(False)
+            self.psi5CB.setVisible(False)
+            self.resize(480, 826)
 
     def checkButtonFerramenta(self):
         if self.ferramentaUtilizada.isChecked() == True:
@@ -84,7 +113,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
     def getPsi(self):
         if self.psi == "Not Ok":
             print("Not ok")
-            self.psi = self.preencherPSITE.toPlainText()
+            #self.psi = self.preencherPSITE.toPlainText()
         else:
             self.psi = ('Não', 'Não', 'Não', 'Não aplicável', 'Não aplicável')
         return self.psi
@@ -109,6 +138,6 @@ class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 app = QtWidgets.QApplication(sys.argv)
 
-window = ChooserWindow()
+window = MainWindow()
 window.show()
 app.exec()

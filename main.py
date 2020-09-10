@@ -22,16 +22,10 @@ __credits__ = ["Daniel Mascarenhas", "Gersiano Santana"]                      # 
 # your own modules.
 import subprocess
 import platform
+from string import Template
 
 class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
-
-    trouble = '<<<<<<<<< TROUBLETEXT >>>>>>>>>'
-    completar= '''*****************************************************
-*****************************************************
-*****************************************************
-*****************************************************
-*****************************************************'''
 
     def __init__(self, area='imagem', tipo='manutencao'):
         self.area = area
@@ -50,15 +44,9 @@ class Relatorio:
         self.situacao = situacao
 
     def set_psi(self, psi):
-        psi_padrao = '''
-O Equipamento causou ou contribuiu para a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa? {} 
-Poderia o mau funcionamento do Equipamento causar a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa caso ocorra novamente? {} 
-Existe algum outro Problema Potencial de Segurança (PSI) considerando os requerimentos do GD 39? {} 
-Caso se trate de um PSI inserir neste campo o Escalonamento ICDxxxx ou PMxxxx. {} 
-Caso haja um problema de segurança, o cliente foi informado sobre tal problema e todos os riscos atrelados ao uso do equipamento nas condições apresentadas, tendo ele decidido se o equipamento continuará ou não em operação? {} 
-        '''
         # * to unpack the tuple
-        self.psi = psi_padrao.format(*psi)
+        #  self.psi = psi_padrao.format(*psi)
+        pass
 
     def contar_espacos(self):
         pass
@@ -67,8 +55,11 @@ Caso haja um problema de segurança, o cliente foi informado sobre tal problema 
         pass
 
     def gerar_texto(self):
-        texto = "Descricao: " + self.descricao + "\n" + "Procedimentos: " + self.procedimentos  + "\n" + "Infra. do site: " + self.infraestrutura + "\n" +"Conclusão: " + self.situacao + "\n" +self.completar + '\n' + self.trouble +  self.psi 
-        return(texto)
+        with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
+            modelo = Template(arquivo.read())
+        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1='nao', psi2='nao', psi3='nao', psi4='nao', psi5='nao', pecas='nenhuma', instrumentos='nenhum')
+        relatorio = modelo.substitute(dados)
+        return(relatorio)
 
 def main(args=None):
     relatorio1 = Relatorio('imagem', 'manutenção')
@@ -83,6 +74,7 @@ def main(args=None):
     relatorio1.set_situacao(situacao)
     relatorio1.set_psi(psi)
     relatorio = relatorio1.gerar_texto()
+    print(relatorio)
     relatorio1.copy2clip(relatorio)
 
 
