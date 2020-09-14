@@ -7,14 +7,25 @@ from chooseWindow import Ui_MainWindow
 from adicionarFerramentaUI import Ui_Dialog
 
 class FerramentaDialog(QtWidgets.QDialog, Ui_Dialog):
-    def __init__(self, *args,**kwargs):
-        super(FerramentaDialog, self).__init__(*args, **kwargs)
+    def __init__(self, parent):
+        super(FerramentaDialog, self).__init__(parent)
         self.setupUi(self)
         self.buttonBox.accepted.connect(self.criarFerramenta)
         self.buttonBox.rejected.connect(self.fecharDialog)
+        self.parent = parent
 
     def criarFerramenta(self):
         print("ferramenta criada")
+        ferramenta = {'nome':self.nomeFerramentaTE.toPlainText().strip('\n'),
+                    'matricula':self.matriculaSAPTE.toPlainText(),
+                    'valCalibracao':self.validadeCertificadoDE.date().toString("dd/MM/yyyy")}
+        print(ferramenta)
+        self.parent.escolherFerramenta.addItem("{} - {}".format(ferramenta['nome'], ferramenta['matricula']))
+        self.parent.escolherFerramenta.setCurrentIndex(self.parent.escolherFerramenta.count()-1)
+        ferramentasFile = open("ferramentas.pkl", "wb")
+        # assim só vai salvar uma, lembrar de mudar depois 
+        pickle.dump(ferramenta, ferramentasFile)
+        ferramentasFile.close()
 
     def fecharDialog(self):
         print("fechando dialog")
@@ -69,10 +80,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         if ferramenta == "Adicionar nova ferramenta":
             print("Nova ferramenta a ser adicionada")
             addFerramentaDiag = FerramentaDialog(self)
-            if addFerramentaDiag.exec_():
-                print("Success!")
-            else:
-                print("Cancel!")
+            addFerramentaDiag.exec_()
         else:
             print(ferramenta)
     
@@ -139,7 +147,8 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         novoRelatorio.set_situacao(self.checkButtonFollowUp())
         novoRelatorio.set_psi(self.getPsi())
         novoRelatorio.set_pecas(self.getPecas())
-        texto = novoRelatorio.gerar_texto()
+        novoRelatorio.set_ferramentas(self.getFerramentas())
+        texto = novoRelatorio.gerar_texto(False)
 
         self.clipboard.setText(texto)
         print(texto)
@@ -148,6 +157,16 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         if self.infra == "Not Ok":
             self.infra = self.preencherInfraTE.toPlainText()
         return self.infra
+        
+    def getFerramentas(self):
+        if self.escolherFerramenta.currentText() == "Adicionar nova ferramenta":
+           print ('não Aplicável')
+           return "Não Aplicável"
+        else:
+            print(self.escolherFerramenta.currentText())
+            return(self.escolherFerramenta.currentText())
+            
+
 
     def getPecas(self):
         if self.pecasTE.toPlainText() == '':

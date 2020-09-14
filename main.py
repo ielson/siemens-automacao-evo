@@ -55,17 +55,27 @@ class Relatorio:
     def set_pecas(self, pecas):
         self.pecas = pecas
 
+    def set_ferramentas(self, ferramentas):
+        self.ferramentas = ferramentas
+
     def contar_espacos(self):
         pass
 
     def completar_espacos(self):
         pass
 
-    def gerar_texto(self):
-        with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
-            modelo = Template(arquivo.read())
-        dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos='nenhum')
-        relatorio = modelo.substitute(dados)
+    def gerar_texto(self, followup):
+        if not followup:
+            with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
+                modelo = Template(arquivo.read())
+            dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
+            relatorio = modelo.substitute(dados)
+        """else:
+            with open("modeloFollowup.txt", encoding='latin-1') as arquivo:
+                modelo = Template(arquivo.read()
+            # adicionar dados
+            dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
+        """
         return(relatorio)
 
 def main(args=None):

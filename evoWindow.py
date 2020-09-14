@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(625, 1020)
+        Form.resize(625, 1160)
         self.verticalLayout_9 = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout()
@@ -116,7 +116,6 @@ class Ui_Form(object):
         self.escolherFerramenta = QtWidgets.QComboBox(Form)
         self.escolherFerramenta.setEditable(False)
         self.escolherFerramenta.setObjectName("escolherFerramenta")
-        self.escolherFerramenta.addItem("")
         self.escolherFerramenta.addItem("")
         self.verticalLayout_10.addWidget(self.escolherFerramenta)
         self.avisoFerramenta = QtWidgets.QLabel(Form)
@@ -313,8 +312,7 @@ class Ui_Form(object):
         self.infraNotOk.setText(_translate("Form", "Não OK"))
         self.label_8.setText(_translate("Form", "Foram consumidas peças nesse atendimento?"))
         self.pecasCB.setText(_translate("Form", "Sim"))
-        self.escolherFerramenta.setItemText(0, _translate("Form", "Multímetro Fluke - 03376589"))
-        self.escolherFerramenta.setItemText(1, _translate("Form", "Adicionar nova ferramenta"))
+        self.escolherFerramenta.setItemText(0, _translate("Form", "Adicionar nova ferramenta"))
         self.avisoFerramenta.setText(_translate("Form", "Atenção ferramenta próxima ao vencimento (15/10)"))
         self.pecasLA.setText(_translate("Form", "Quais peças foram consumidas?"))
         self.pecasTE.setPlaceholderText(_translate("Form", "Bobina X (PN ########)"))
@@ -329,4 +327,5 @@ class Ui_Form(object):
         self.psi5LA.setText(_translate("Form", "Caso haja um problema de segurança, o cliente foi informado sobre tal problema e todos os riscos atrelados ao uso do equipamento nas condições apresentadas, tendo ele decidido se o equipamento continuará ou não em operação?"))
         self.psi5CB.setText(_translate("Form", "Sim"))
         self.preencherInfraLA.setText(_translate("Form", "Relate os problemas de infraestrutura encontrados"))
+        self.preencherInfraTE.setPlaceholderText(_translate("Form", "Ex. Temperatura Fora da especificação - 28oC  "))
         self.copiarRelatorio.setText(_translate("Form", "Copiar Relatório"))
