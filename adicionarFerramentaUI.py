@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(320, 240)
+        Dialog.resize(320, 384)
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(Dialog)
@@ -23,9 +23,9 @@ class Ui_Dialog(object):
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
-        self.noFerramentaTE = QtWidgets.QPlainTextEdit(Dialog)
-        self.noFerramentaTE.setObjectName("noFerramentaTE")
-        self.verticalLayout.addWidget(self.noFerramentaTE)
+        self.nomeFerramentaTE = QtWidgets.QPlainTextEdit(Dialog)
+        self.nomeFerramentaTE.setObjectName("nomeFerramentaTE")
+        self.verticalLayout.addWidget(self.nomeFerramentaTE)
         self.label_3 = QtWidgets.QLabel(Dialog)
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
@@ -56,9 +56,9 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "Adicionar Ferramenta"))
         self.label_2.setText(_translate("Dialog", "Nome da Ferramenta"))
-        self.noFerramentaTE.setPlainText(_translate("Dialog", "\n"
+        self.nomeFerramentaTE.setPlainText(_translate("Dialog", "\n"
 ""))
-        self.noFerramentaTE.setPlaceholderText(_translate("Dialog", "Multímetro Fluke "))
+        self.nomeFerramentaTE.setPlaceholderText(_translate("Dialog", "Multímetro Fluke "))
         self.label_3.setText(_translate("Dialog", "Matrícula SAP"))
         self.matriculaSAPTE.setPlaceholderText(_translate("Dialog", "10012581"))
         self.label_4.setText(_translate("Dialog", "Validade do Certificado de Calibração "))
