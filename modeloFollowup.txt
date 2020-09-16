@@ -1,0 +1,24 @@
+Descrição: $descricao
+- Procedimentos: $procedimentos
+- Infra. do site: $infraestrutura
+- Conclusão: $conclusao
+****************************************************
+*****************************************************
+*****************************************************
+*****************************************************
+*****************************************************
+O Problema é Fixo, Intermitente ou Reproduzível? $tipoProblema
+O Equipamento causou ou contribuiu para a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa? $psi1
+Poderia o mau funcionamento do Equipamento causar a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa caso ocorra novamente? $psi2
+Existe algum outro Problema Potencial de Segurança (PSI) considerando os requerimentos do GD 39? $psi3
+Caso se trate de um PSI inserir neste campo o Escalonamento ICDxxxx ou PMxxxx. $psi4
+Caso haja um problema de segurança, o cliente foi informado sobre tal problema e todos os riscos atrelados ao uso do equipamento nas condições apresentadas, tendo ele decidido se o equipamento continuará ou não em operação? $psi5
+Plano de ação para a próxima visita: $planoAcao
+Tempo previsto para o próximo atendimento: $tempoPrevisto
+Existe necessidade de ferramentas especiais para o próximo atendimento? $ferramentasEspeciais
+Complexidade do Atendimento de Campo: $complexidadeAtendimento
+Peças consumidas neste atendimento: $pecasConsumidas
+Peças em teste: $pecasTeste
+Peças solicitadas para o próximo atendimento: $pecasProximoAtendimento
+Em caso de indisponibilidade, o atendimento pode ser realizado com apenas alguma(s) das peças solicitadas? $pecasIndispensaveis
+Quais instrumentos de inspeção, medição ou teste foram utilizados neste atendimento? $instrumentos
