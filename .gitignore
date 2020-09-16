@@ -1,4 +1,4 @@
-*.txt
+esboco.txt
 *.swp
 __pycache__/
 *.pyc
