@@ -2,3 +2,4 @@ esboco.txt
 *.swp
 __pycache__/
 *.pyc
+*.json

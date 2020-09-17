@@ -1,10 +1,13 @@
 import sys
 import main
+import json
+import os
 
 from PyQt5 import QtWidgets, uic
 from evoWindow import Ui_Form
 from chooseWindow import Ui_MainWindow
 from adicionarFerramentaUI import Ui_Dialog
+
 
 class FerramentaDialog(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self, parent):
@@ -16,16 +19,17 @@ class FerramentaDialog(QtWidgets.QDialog, Ui_Dialog):
 
     def criarFerramenta(self):
         print("ferramenta criada")
-        ferramenta = {'nome':self.nomeFerramentaTE.toPlainText().strip('\n'),
-                    'matricula':self.matriculaSAPTE.toPlainText(),
-                    'valCalibracao':self.validadeCertificadoDE.date().toString("dd/MM/yyyy")}
+        ferramenta = (self.nomeFerramentaTE.toPlainText().strip('\n'), 
+                    self.matriculaSAPTE.toPlainText(),
+                    self.validadeCertificadoDE.date().toString("dd/MM/yyyy"))
         print(ferramenta)
-        self.parent.escolherFerramenta.addItem("{} - {}".format(ferramenta['nome'], ferramenta['matricula']))
+        self.parent.ferramentasUtilizadas.append(ferramenta)
+        self.parent.escolherFerramenta.addItem("{} - {}".format(ferramenta[1], ferramenta[0]))
         self.parent.escolherFerramenta.setCurrentIndex(self.parent.escolherFerramenta.count()-1)
-        ferramentasFile = open("ferramentas.pkl", "wb")
-        # assim só vai salvar uma, lembrar de mudar depois 
-        pickle.dump(ferramenta, ferramentasFile)
-        ferramentasFile.close()
+        with open("ferramentas.json", "w+", encoding='utf-8') as ferramentasFile:
+            # assim só vai salvar uma, lembrar de mudar depois 
+            # pickle.dump(ferramenta, ferramentasFile)
+            json.dump(self.parent.ferramentasUtilizadas, ferramentasFile)
 
     def fecharDialog(self):
         print("fechando dialog")
@@ -64,7 +68,15 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.situacao = "Finalizado"
         self.clipboard = QtWidgets.QApplication.clipboard()
         self.tipoCB.activated[str].connect(self.tipoEscolhido)
-       
+        self.ferramentasUtilizadas = []
+        if os.path.isfile('ferramentas.json'):
+            with open('ferramentas.json', 'r') as ferramentasFile:
+                ferramentas = json.load(ferramentasFile)
+                for ferramentaSalva in ferramentas:
+                    # self.adicionarFerramenta()
+                    print("uma ferramenta: {}".format(ferramentaSalva))
+                    self.ferramentasUtilizadas.append(ferramentaSalva)
+                    self.escolherFerramenta.addItem("{} - {}".format(ferramentaSalva[1], ferramentaSalva[0]))
 
     def checkButtonInfra(self):
         if self.infraNotOk.isChecked() == True:
@@ -193,7 +205,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         if self.psi5CB.isChecked() == True:
             psi5 = "Sim"
         else:
-            psi5 = 'Não'
+            psi5 = 'Não Aplicável'
         self.psi = (psi1, psi2, psi3, psi4, psi5)
         return self.psi
 
