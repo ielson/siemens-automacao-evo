@@ -7,6 +7,7 @@ Descrição: $descricao
 *****************************************************
 *****************************************************
 *****************************************************
+<<<<<<<<< TROUBLETEXT >>>>>>>>>
 O Equipamento causou ou contribuiu para a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa? $psi1
 Poderia o mau funcionamento do Equipamento causar a morte ou grave ferimento ao usuário, paciente ou qualquer outra pessoa caso ocorra novamente? $psi2
 Existe algum outro Problema Potencial de Segurança (PSI) considerando os requerimentos do GD 39? $psi3

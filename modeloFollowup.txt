@@ -17,7 +17,7 @@ Plano de ação para a próxima visita: $planoAcao
 Tempo previsto para o próximo atendimento: $tempoPrevisto
 Existe necessidade de ferramentas especiais para o próximo atendimento? $ferramentasEspeciais
 Complexidade do Atendimento de Campo: $complexidadeAtendimento
-Peças consumidas neste atendimento: $pecasConsumidas
+Peças consumidas neste atendimento: $pecas
 Peças em teste: $pecasTeste
 Peças solicitadas para o próximo atendimento: $pecasProximoAtendimento
 Em caso de indisponibilidade, o atendimento pode ser realizado com apenas alguma(s) das peças solicitadas? $pecasIndispensaveis

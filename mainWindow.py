@@ -4,7 +4,7 @@ import json
 import os
 
 from PyQt5 import QtWidgets, uic
-from evoWindow import Ui_Form
+from evoWindow import Ui_Sigame
 from chooseWindow import Ui_MainWindow
 from adicionarFerramentaUI import Ui_Dialog
 
@@ -36,10 +36,11 @@ class FerramentaDialog(QtWidgets.QDialog, Ui_Dialog):
 
 
 
-class MainWindow(QtWidgets.QWidget, Ui_Form):
+class MainWindow(QtWidgets.QWidget, Ui_Sigame):
     def __init__(self, *args, obj=None, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.resize(615, 930)
         self.escolherFerramenta.setVisible(False)
         self.preencherInfraLA.setVisible(False)
         self.preencherInfraTE.setVisible(False)
@@ -56,14 +57,32 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         self.psi5CB.setVisible(False)
         self.pecasTE.setVisible(False)
         self.pecasLA.setVisible(False)
+        self.tipoProblemaLA.setVisible(False)
+        self.tipoProblemaRB1.setVisible(False)
+        self.tipoProblemaRB2.setVisible(False)
+        self.tipoProblemaRB3.setVisible(False)
+        self.planoAcaoLA.setVisible(False)
+        self.planoAcaoTE.setVisible(False)
+        self.tempoLA.setVisible(False)
+        self.tempoTE.setVisible(False)
+        self.ferramentasEspeciaisLA.setVisible(False)
+        self.ferramentasEspeciaisTE.setVisible(False)
+        self.complexidadeCB.setVisible(False)
+        self.complexidadeLA.setVisible(False)
+        self.pecasTesteLA.setVisible(False)
+        self.pecasTesteTE.setVisible(False)
+        self.pecasSolicitadasLA.setVisible(False)
+        self.pecasSolicitadasTE.setVisible(False)
+        self.indisponibilidadeLA.setVisible(False)
+        self.indisponibilidadeTE.setVisible(False)
         self.avisoFerramenta.setVisible(False)
         self.infraNotOk.toggled.connect(self.checkButtonInfra)
         self.PSI.toggled.connect(self.checkButtonPSI)
         self.ferramentaUtilizada.toggled.connect(self.checkButtonFerramenta)
+        self.necessarioFollowUp.toggled.connect(self.checkButtonFollowUp)
         self.copiarRelatorio.clicked.connect(self.buttonCopiar)
         self.pecasCB.toggled.connect(self.checkButtonPecas)
         self.escolherFerramenta.activated[str].connect(self.checkEscolherFerramentas)
-        self.infra = "Ok"
         self.psi = "Ok"
         self.situacao = "Finalizado"
         self.clipboard = QtWidgets.QApplication.clipboard()
@@ -82,11 +101,10 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         if self.infraNotOk.isChecked() == True:
             self.preencherInfraTE.setVisible(True)
             self.preencherInfraLA.setVisible(True)
-            self.infra = "Not Ok"
+            print('infra not ok')
         else:
             self.preencherInfraTE.setVisible(False)
             self.preencherInfraLA.setVisible(False)
-            self.infra = "Ok"
 
     def checkEscolherFerramentas(self, ferramenta):
         if ferramenta == "Adicionar nova ferramenta":
@@ -95,6 +113,9 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             addFerramentaDiag.exec_()
         else:
             print(ferramenta)
+
+           
+            
     
     def checkButtonPecas(self):
         if self.pecasCB.isChecked():
@@ -117,7 +138,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.psi4TE.setVisible(True)
             self.psi5LA.setVisible(True)
             self.psi5CB.setVisible(True)
-            self.resize(880, 1024)
+            self.resize(615, 930)
             self.pecasCB.setStyleSheet("margin-left:400%")
         else:
             self.preencherPSILA.setVisible(False)
@@ -143,10 +164,49 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
             self.avisoFerramenta.setVisible(False)
 
     def checkButtonFollowUp(self):
-        if self.necessarioFollowUp.isChecked():
-            self.situacao = "Não finalizado"
+        if self.necessarioFollowUp.isChecked() == False:
+            self.pecasTE.setVisible(False)
+            self.pecasLA.setVisible(False)
+            self.tipoProblemaLA.setVisible(False)
+            self.tipoProblemaRB1.setVisible(False)
+            self.tipoProblemaRB2.setVisible(False)
+            self.tipoProblemaRB3.setVisible(False)
+            self.planoAcaoLA.setVisible(False)
+            self.planoAcaoTE.setVisible(False)
+            self.tempoLA.setVisible(False)
+            self.tempoTE.setVisible(False)
+            self.ferramentasEspeciaisLA.setVisible(False)
+            self.ferramentasEspeciaisTE.setVisible(False)
+            self.complexidadeCB.setVisible(False)
+            self.complexidadeLA.setVisible(False)
+            self.pecasTesteLA.setVisible(False)
+            self.pecasTesteTE.setVisible(False)
+            self.pecasSolicitadasLA.setVisible(False)
+            self.pecasSolicitadasTE.setVisible(False)
+            self.indisponibilidadeLA.setVisible(False)
+            self.indisponibilidadeTE.setVisible(False)
         else:
-            self.situacao = "Finalizado"
+            self.pecasTE.setVisible(True)
+            self.pecasLA.setVisible(True)
+            self.tipoProblemaLA.setVisible(True)
+            self.tipoProblemaRB1.setVisible(True)
+            self.tipoProblemaRB2.setVisible(True)
+            self.tipoProblemaRB3.setVisible(True)
+            self.planoAcaoLA.setVisible(True)
+            self.planoAcaoTE.setVisible(True)
+            self.tempoLA.setVisible(True)
+            self.tempoTE.setVisible(True)
+            self.ferramentasEspeciaisLA.setVisible(True)
+            self.ferramentasEspeciaisTE.setVisible(True)
+            self.complexidadeCB.setVisible(True)
+            self.complexidadeLA.setVisible(True)
+            self.pecasTesteLA.setVisible(True)
+            self.pecasTesteTE.setVisible(True)
+            self.pecasSolicitadasLA.setVisible(True)
+            self.pecasSolicitadasTE.setVisible(True)
+            self.indisponibilidadeLA.setVisible(True)
+            self.indisponibilidadeTE.setVisible(True)
+        self.situacao = 'finalizado'
         return self.situacao
 
     def buttonCopiar(self):
@@ -166,7 +226,13 @@ class MainWindow(QtWidgets.QWidget, Ui_Form):
         print(texto)
 
     def getInfra(self):
-        if self.infra == "Not Ok":
+        # if self.infra == "Not Ok":
+        if self.preencherInfraTE.toPlainText() == '':
+            print('sem problemas de infra relatados')
+            self.infra = "Ok"
+        else:
+            print('mudando infra')
+            print(self.preencherInfraTE.toPlainText())
             self.infra = self.preencherInfraTE.toPlainText()
         return self.infra
         
