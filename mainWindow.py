@@ -3,6 +3,8 @@ import main
 import json
 import os
 
+import qdarkstyle
+
 from PyQt5 import QtWidgets, uic
 from evoWindow import Ui_Sigame
 from chooseWindow import Ui_MainWindow
@@ -294,7 +296,7 @@ class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print("mostrarJanela") 
 
 app = QtWidgets.QApplication(sys.argv)
-app.setStyle('Breeze')
+app.setStyle(qdarkstyle.load_stylesheet_pyqt5())
 
 window = MainWindow()
 window.show()
