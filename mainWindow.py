@@ -294,6 +294,7 @@ class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print("mostrarJanela") 
 
 app = QtWidgets.QApplication(sys.argv)
+app.setStyle('Breeze')
 
 window = MainWindow()
 window.show()
