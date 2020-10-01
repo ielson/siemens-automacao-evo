@@ -2224,7 +2224,7 @@ PlotWidget {
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap>../../../../../../home/ielson/code/siemens/automacao-evo/siemenshealthineerssmall.png</pixmap>
+        <pixmap resource="../../../../../../home/ielson/code/siemens/automacao-evo/resources.qrc">:/images/siemenshealthineerssmall.png</pixmap>
        </property>
       </widget>
      </item>
@@ -3042,6 +3042,8 @@ PlotWidget {
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../../../home/ielson/code/siemens/automacao-evo/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

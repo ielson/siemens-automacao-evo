@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="images">
+    <file>siemenshealthineerssmall.png</file>
+  </qresource>
+</RCC>
