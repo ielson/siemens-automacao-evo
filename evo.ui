@@ -124,14 +124,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPlainTextEdit" name="descricaoTE">
-           <property name="plainText">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>Descreva o problema encontrado na máquina</string>
-           </property>
-          </widget>
+          <widget class="QTextEdit" name="descricaoTE"/>
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -144,6 +137,30 @@
            </item>
            <item>
             <widget class="QTextEdit" name="procedimentosTE"/>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="caracteresLA">
+               <property name="text">
+                <string>X caracteres ainda poderão ser vistos pelo cliente</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>

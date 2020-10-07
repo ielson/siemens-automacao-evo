@@ -5,7 +5,7 @@ import os
 
 import qdarkstyle
 
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui
 from evoWindow import Ui_Sigame
 from chooseWindow import Ui_MainWindow
 from adicionarFerramentaUI import Ui_Dialog
@@ -231,7 +231,18 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.novoRelatorio.set_psi(self.getPsi())
         self.novoRelatorio.set_pecas(self.getPecas())
         self.novoRelatorio.set_ferramentas(self.getFerramentas())
-        self.texto = self.novoRelatorio.gerar_texto(False)
+        self.texto, caracteres = self.novoRelatorio.gerar_texto(False)
+        corVermelha = QtGui.QColor(255, 0, 0)
+        corBranca = QtGui.QColor(255, 255, 255)
+        self.caracteresLA.setText(str(500 -len(caracteres)) + " caracteres ainda poderão ser vistos pelo cliente")
+        print("CHAR: ")
+        print(caracteres)
+        print("len: {}".format(len(caracteres)))
+        if len(caracteres) >= 500:
+            self.procedimentosTE.setTextColor(corVermelha)
+            self.descricaoTE.setTextColor(corVermelha)
+            self.caracteresLA.setText(str(abs(500 -len(caracteres))) + " caracteres não poderão ser vistos pelo cliente")
+            self.caracteresLA.setStyleSheet("color: #FF0000")
 
     def getInfra(self):
         # if self.infra == "Not Ok":

@@ -70,8 +70,8 @@ class Relatorio:
                 modelo = Template(arquivo.read())
             dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
             self.relatorio = modelo.substitute(dados)
-            self.contador_caracteres()
-        return(self.relatorio)
+            caracteres = self.contador_caracteres()
+        return(self.relatorio, caracteres)
         
     def contador_caracteres(self):
     # Tenho que arrumar aqui, se não vai ficar abrindo o arquivo toda vez que o contador for chamado, que vão ser muitas
@@ -79,7 +79,7 @@ class Relatorio:
         visivelCliente = self.relatorio.split('*')[0]
         print('visivel cliente: {}'.format(visivelCliente))
         print('tamanho: {}'.format(len(visivelCliente)))
-
+        return visivelCliente
 
 def main(args=None):
     relatorio1 = Relatorio('imagem', 'manutenção')
