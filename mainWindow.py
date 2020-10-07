@@ -98,6 +98,11 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
                     print("uma ferramenta: {}".format(ferramentaSalva))
                     self.ferramentasUtilizadas.append(ferramentaSalva)
                     self.escolherFerramenta.addItem("{} - {}".format(ferramentaSalva[1], ferramentaSalva[0]))
+        area =  "imagem"
+        tipo = self.tipoCB.currentText()
+        self.novoRelatorio = main.Relatorio(area, tipo)
+        self.procedimentosTE.textChanged.connect(self.atualizarTexto)
+        self.descricaoTE.textChanged.connect(self.atualizarTexto)
 
     def checkButtonInfra(self):
         if self.infraNotOk.isChecked() == True:
@@ -116,8 +121,6 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         else:
             print(ferramenta)
 
-           
-            
     
     def checkButtonPecas(self):
         if self.pecasCB.isChecked():
@@ -140,7 +143,6 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.psi4TE.setVisible(True)
             self.psi5LA.setVisible(True)
             self.psi5CB.setVisible(True)
-            self.resize(615, 930)
             self.pecasCB.setStyleSheet("margin-left:400%")
         else:
             self.preencherPSILA.setVisible(False)
@@ -154,7 +156,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.psi4TE.setVisible(False)
             self.psi5LA.setVisible(False)
             self.psi5CB.setVisible(False)
-            self.resize(480, 826)
+            self.resize(615, 930)
             self.pecasCB.setStyleSheet("margin-left:200%")
 
     def checkButtonFerramenta(self):
@@ -187,6 +189,8 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.pecasSolicitadasTE.setVisible(False)
             self.indisponibilidadeLA.setVisible(False)
             self.indisponibilidadeTE.setVisible(False)
+            self.resize(615, 930)
+            print('depois do resize')
         else:
             self.pecasTE.setVisible(True)
             self.pecasLA.setVisible(True)
@@ -212,20 +216,22 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         return self.situacao
 
     def buttonCopiar(self):
+        self.atualizarTexto()   
+        self.clipboard.setText(self.texto)
+        print(self.texto)
+
+    def atualizarTexto(self):
+        # arrumar aqui pra não ficar criando um novo objeto a toda chamada
         area =  "imagem"
         tipo = self.tipoCB.currentText()
-        novoRelatorio = main.Relatorio(area, tipo)
-        novoRelatorio.set_descricao(self.descricaoTE.toPlainText())
-        novoRelatorio.set_procedimentos(self.procedimentosTE.toPlainText())
-        novoRelatorio.set_infraestrutura(self.getInfra())
-        novoRelatorio.set_situacao(self.checkButtonFollowUp())
-        novoRelatorio.set_psi(self.getPsi())
-        novoRelatorio.set_pecas(self.getPecas())
-        novoRelatorio.set_ferramentas(self.getFerramentas())
-        texto = novoRelatorio.gerar_texto(False)
-
-        self.clipboard.setText(texto)
-        print(texto)
+        self.novoRelatorio.set_descricao(self.descricaoTE.toPlainText())
+        self.novoRelatorio.set_procedimentos(self.procedimentosTE.toPlainText())
+        self.novoRelatorio.set_infraestrutura(self.getInfra())
+        self.novoRelatorio.set_situacao(self.checkButtonFollowUp())
+        self.novoRelatorio.set_psi(self.getPsi())
+        self.novoRelatorio.set_pecas(self.getPecas())
+        self.novoRelatorio.set_ferramentas(self.getFerramentas())
+        self.texto = self.novoRelatorio.gerar_texto(False)
 
     def getInfra(self):
         # if self.infra == "Not Ok":
@@ -282,7 +288,13 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             texto_preventiva = '''Houve a troca de algum kit?
 Qual o nível atual de hélio da máquina?
 Houve algum ERDU Short nos últimos 2 meses? '''
+            self.descricaoTE.setPlainText('')
             self.procedimentosTE.setPlainText(texto_preventiva)
+        if tipo == "Viagem":
+            texto_viagem = '''Deslocamento para atendimento do chamado'''
+            procedimento_viagem = '''Disp utilizada para marcar a viagem relativa a este chamado'''
+            self.descricaoTE.setPlainText(texto_viagem)
+            self.procedimentosTE.setPlainText(procedimento_viagem)
 
 class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
