@@ -24,6 +24,7 @@ import subprocess
 import platform
 from string import Template
 import json
+import os
 
 class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
@@ -69,14 +70,31 @@ class Relatorio:
         if not followup:
             with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
                 modelo = Template(arquivo.read())
-            dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
-            self.relatorio = modelo.substitute(dados)
+            self.dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
+            self.relatorio = modelo.substitute(self.dados)
             caracteres = self.contador_caracteres()
-            with open("relatorio1.txt", "w", encoding="latin-1") as relatorioSalvo:
-                json_str = json.dumps(dados, indent=4)
-                print(json_str, file=relatorioSalvo)
-        return(self.relatorio, caracteres)
+            return(self.relatorio, caracteres)
         
+    def salvar_texto(self):
+        for relatorioNum in range(3, 1, -1):
+            if not os.path.exists("relatorio{}.txt".format(relatorioNum-1)):
+                with open("relatorio{}.txt".format(relatorioNum-1), "w"):
+                    pass
+            try:
+                with open("relatorio{}.txt".format(relatorioNum - 1 ), "r", encoding="latin-1") as relatorioOriginal:
+                    dados_antigos = json.loads(relatorioOriginal.read())
+                    print("relatorio original copiado")
+                with open("relatorio{}.txt".format(relatorioNum), "w", encoding="latin-1") as relatorioMovido:
+                    json_str_movida = json.dumps(dados_antigos, indent=4)
+                    print(json_str_movida, file=relatorioMovido)
+                    print("relatorio movido")
+            except json.decoder.JSONDecodeError:
+                    print("Erro do json, relatorio: {}".format(relatorioNum-1))
+        with open("relatorio1.txt", "w", encoding="latin-1") as relatorioNovo:
+            json_str = json.dumps(self.dados, indent=4)
+            print(json_str, file=relatorioNovo)
+            print("relatório salvo")
+
     def contador_caracteres(self):
     # Tenho que arrumar aqui, se não vai ficar abrindo o arquivo toda vez que o contador for chamado, que vão ser muitas
         #if not followup:

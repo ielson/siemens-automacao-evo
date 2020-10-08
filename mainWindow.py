@@ -220,6 +220,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.atualizarTexto()   
         self.clipboard.setText(self.texto)
         print(self.texto)
+        self.novoRelatorio.salvar_texto()
 
     def atualizarTexto(self):
         # arrumar aqui pra não ficar criando um novo objeto a toda chamada
