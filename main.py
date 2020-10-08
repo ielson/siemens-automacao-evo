@@ -23,6 +23,7 @@ __credits__ = ["Daniel Mascarenhas", "Gersiano Santana"]                      # 
 import subprocess
 import platform
 from string import Template
+import json
 
 class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
@@ -71,6 +72,9 @@ class Relatorio:
             dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
             self.relatorio = modelo.substitute(dados)
             caracteres = self.contador_caracteres()
+            with open("relatorio1.txt", "w", encoding="latin-1") as relatorioSalvo:
+                json_str = json.dumps(dados, indent=4)
+                print(json_str, file=relatorioSalvo)
         return(self.relatorio, caracteres)
         
     def contador_caracteres(self):

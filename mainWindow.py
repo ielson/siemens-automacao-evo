@@ -2,8 +2,8 @@ import sys
 import main
 import json
 import os
-
-import qdarkstyle
+import json
+from string import Template
 
 from PyQt5 import QtWidgets, uic, QtGui
 from evoWindow import Ui_Sigame
@@ -103,6 +103,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.novoRelatorio = main.Relatorio(area, tipo)
         self.procedimentosTE.textChanged.connect(self.atualizarTexto)
         self.descricaoTE.textChanged.connect(self.atualizarTexto)
+        self.voltarChamadoPB.clicked.connect(self.recuperarTexto)
 
     def checkButtonInfra(self):
         if self.infraNotOk.isChecked() == True:
@@ -244,6 +245,46 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.caracteresLA.setText(str(abs(500 -len(caracteres))) + " caracteres não poderão ser vistos pelo cliente")
             self.caracteresLA.setStyleSheet("color: #FF0000")
 
+    def recuperarTexto(self):
+        with open("relatorio1.txt",encoding='latin-1') as relatorioJson:
+           relatorioAnterior = json.load(relatorioJson) 
+        print('vars:')
+        for variavel in relatorioAnterior:
+            print("{}:{}".format(variavel, relatorioAnterior[variavel]))
+        # isso tá horroroso, tenho que melhorar depois
+        self.procedimentosTE.setText(relatorioAnterior['procedimentos'])
+        self.descricaoTE.setText(relatorioAnterior['descricao'])
+        if relatorioAnterior['psi1'] == "Não":
+            self.psi1CB.setChecked(False)
+        else:
+            self.psi1CB.setChecked(True)
+        if relatorioAnterior['psi2'] == "Não":
+            self.psi2CB.setChecked(False)
+        else:
+            self.psi2CB.setChecked(True)
+        if relatorioAnterior['psi3'] == "Não":
+            self.psi3CB.setChecked(False)
+        else:
+            self.psi3CB.setChecked(True)
+        self.psi4TE.setPlainText(relatorioAnterior['psi4'])
+        if relatorioAnterior['psi5'] == "Não":
+            self.psi5CB.setChecked(False)
+        else:
+            self.psi5CB.setChecked(True)
+        if relatorioAnterior['conclusao'] == "finalizado":
+            self.necessarioFollowUp.setChecked(False)
+        else:
+            self.necessarioFollowUp.setChecked(True)
+        #colocar instrumento vazio
+        if relatorioAnterior['infraestrutura'] == "Ok":
+            self.infraNotOk.setChecked(False)
+            self.preencherInfraTE.setPlainText("")
+        else:
+            self.infraNotOk.setChecked(True)
+            self.preencherInfraTE.setPlainText(relatorioAnterior['infraestrutura'])
+        
+
+
     def getInfra(self):
         # if self.infra == "Not Ok":
         if self.preencherInfraTE.toPlainText() == '':
@@ -319,7 +360,6 @@ class ChooserWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         print("mostrarJanela") 
 
 app = QtWidgets.QApplication(sys.argv)
-app.setStyle(qdarkstyle.load_stylesheet_pyqt5())
 
 window = MainWindow()
 window.show()

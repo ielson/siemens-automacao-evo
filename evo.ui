@@ -57,6 +57,63 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_17">
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="voltarChamadoPB">
+       <property name="toolTip">
+        <string>preencher com infos do chamado anterior</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../home/ielson/code/siemens/automacao-evo/seta-esquerda.png</normaloff>../../../../../../home/ielson/code/siemens/automacao-evo/seta-esquerda.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="avancarChamadoPB">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>avançar um chamado</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../../../home/ielson/code/siemens/automacao-evo/seta-direita.png</normaloff>../../../../../../home/ielson/code/siemens/automacao-evo/seta-direita.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_8">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -156,7 +213,7 @@
              <item>
               <widget class="QLabel" name="caracteresLA">
                <property name="text">
-                <string>X caracteres ainda poderão ser vistos pelo cliente</string>
+                <string>425 caracteres ainda poderão ser vistos pelo cliente</string>
                </property>
               </widget>
              </item>
