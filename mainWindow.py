@@ -237,17 +237,16 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.novoRelatorio.set_pecas(self.getPecas())
         self.novoRelatorio.set_ferramentas(self.getFerramentas())
         self.texto, caracteres = self.novoRelatorio.gerar_texto(False)
-        corVermelha = QtGui.QColor(255, 0, 0)
+        corVermelha = QtGui.QColor(150, 146, 146)
         corBranca = QtGui.QColor(255, 255, 255)
-        self.caracteresLA.setText(str(500 -len(caracteres)) + " caracteres ainda poderão ser vistos pelo cliente")
+        self.caracteresLA.setText(str(500 -len(caracteres)) + " chars ainda visíveis")
         print("CHAR: ")
         print(caracteres)
         print("len: {}".format(len(caracteres)))
         if len(caracteres) >= 500:
             self.procedimentosTE.setTextColor(corVermelha)
             self.descricaoTE.setTextColor(corVermelha)
-            self.caracteresLA.setText(str(abs(500 -len(caracteres))) + " caracteres não poderão ser vistos pelo cliente")
-            self.caracteresLA.setStyleSheet("color: #FF0000")
+            self.caracteresLA.setText("0 chars não visíveis p/ cliente")
 
     def voltarChamado(self):
         if self.relatorioNum < 3:
@@ -270,54 +269,67 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         if self.relatorioNum == 0:
             self.procedimentosTE.setText("")
             self.descricaoTE.setText("")
-            sel.psi1CB.setChecked(False)
+            self.psi1CB.setChecked(False)
+            self.PSI.setChecked(False)
             self.psi2CB.setChecked(False)
             self.psi3CB.setChecked(False)
-            self.psi4TE.setPlaintText("")
+            self.psi4TE.setPlainText("")
             self.psi5CB.setChecked(False)
             self.necessarioFollowUp.setChecked(False)
             self.infraNotOk.setChecked(False)
             self.preencherInfraTE.setPlainText("")
             self.avancarChamadoPB.setEnabled(False)
             self.tipoCB.setCurrentText("Corretiva")
-            
-        with open("relatorio{}.txt".format(self.relatorioNum),encoding='latin-1') as relatorioJson:
-           relatorioAnterior = json.load(relatorioJson) 
-        print('vars:')
-        for variavel in relatorioAnterior:
-            print("{}:{}".format(variavel, relatorioAnterior[variavel]))
-        # isso tá horroroso, tenho que melhorar depois
-        self.procedimentosTE.setText(relatorioAnterior['procedimentos'])
-        self.descricaoTE.setText(relatorioAnterior['descricao'])
-        self.tipoCB.setCurrentText(relatorioAnterior['tipo'])
-        if relatorioAnterior['psi1'] == "Não":
-            self.psi1CB.setChecked(False)
-        else:
-            self.psi1CB.setChecked(True)
-        if relatorioAnterior['psi2'] == "Não":
-            self.psi2CB.setChecked(False)
-        else:
-            self.psi2CB.setChecked(True)
-        if relatorioAnterior['psi3'] == "Não":
-            self.psi3CB.setChecked(False)
-        else:
-            self.psi3CB.setChecked(True)
-        self.psi4TE.setPlainText(relatorioAnterior['psi4'])
-        if relatorioAnterior['psi5'] == "Não":
-            self.psi5CB.setChecked(False)
-        else:
-            self.psi5CB.setChecked(True)
-        if relatorioAnterior['conclusao'] == "finalizado":
-            self.necessarioFollowUp.setChecked(False)
-        else:
-            self.necessarioFollowUp.setChecked(True)
-        #colocar instrumento vazio
-        if relatorioAnterior['infraestrutura'] == "Ok":
-            self.infraNotOk.setChecked(False)
-            self.preencherInfraTE.setPlainText("")
-        else:
-            self.infraNotOk.setChecked(True)
-            self.preencherInfraTE.setPlainText(relatorioAnterior['infraestrutura'])
+            self.ferramentaUtilizada.setChecked(False)
+            self.escolherFerramenta.setCurrentText("Adicionar nova ferramenta")
+
+        else: 
+            with open("relatorio{}.txt".format(self.relatorioNum),encoding='latin-1') as relatorioJson:
+                relatorioAnterior = json.load(relatorioJson) 
+            print('vars:')
+            for variavel in relatorioAnterior:
+                print("{}:{}".format(variavel, relatorioAnterior[variavel]))
+            # isso tá horroroso, tenho que melhorar depois
+            self.procedimentosTE.setText(relatorioAnterior['procedimentos'])
+            self.descricaoTE.setText(relatorioAnterior['descricao'])
+            self.tipoCB.setCurrentText(relatorioAnterior['tipo'])
+            if relatorioAnterior['psi1'] == "Não":
+                self.psi1CB.setChecked(False)
+            else:
+                self.psi1CB.setChecked(True)
+            if relatorioAnterior['psi2'] == "Não":
+                self.psi2CB.setChecked(False)
+                self.PSI.setChecked(False)
+            else:
+                self.psi2CB.setChecked(True)
+                self.PSI.setChecked(True)
+            if relatorioAnterior['psi3'] == "Não":
+                self.psi3CB.setChecked(False)
+            else:
+                self.psi3CB.setChecked(True)
+            self.psi4TE.setPlainText(relatorioAnterior['psi4'])
+            if relatorioAnterior['psi5'] == "Não":
+                self.psi5CB.setChecked(False)
+            else:
+                self.psi5CB.setChecked(True)
+            if relatorioAnterior['conclusao'] == "finalizado":
+                self.necessarioFollowUp.setChecked(False)
+            else:
+                self.necessarioFollowUp.setChecked(True)
+            #colocar instrumento vazio
+            if relatorioAnterior['infraestrutura'] == "Ok":
+                self.infraNotOk.setChecked(False)
+                self.preencherInfraTE.setPlainText("")
+            else:
+                self.infraNotOk.setChecked(True)
+                self.preencherInfraTE.setPlainText(relatorioAnterior['infraestrutura'])
+            if relatorioAnterior['instrumentos'] != "Não Aplicável":
+                print(relatorioAnterior['instrumentos'])
+                self.escolherFerramenta.setCurrentText(relatorioAnterior['instrumentos'])
+                self.ferramentaUtilizada.setChecked(True)
+            else:
+                self.ferramentaUtilizada.setChecked(False)
+                self.escolherFerramenta.setCurrentText("Adicionar nova ferramenta")
         
 
     def getInfra(self):
