@@ -100,10 +100,13 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
                     self.escolherFerramenta.addItem("{} - {}".format(ferramentaSalva[1], ferramentaSalva[0]))
         area =  "imagem"
         tipo = self.tipoCB.currentText()
-        self.novoRelatorio = main.Relatorio(area, tipo)
+        self.novoRelatorio = main.Relatorio(area)
         self.procedimentosTE.textChanged.connect(self.atualizarTexto)
         self.descricaoTE.textChanged.connect(self.atualizarTexto)
-        self.voltarChamadoPB.clicked.connect(self.recuperarTexto)
+        self.voltarChamadoPB.clicked.connect(self.voltarChamado)
+        self.avancarChamadoPB.clicked.connect(self.avancarChamado)
+        
+        self.relatorioNum = 0
 
     def checkButtonInfra(self):
         if self.infraNotOk.isChecked() == True:
@@ -225,8 +228,8 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
     def atualizarTexto(self):
         # arrumar aqui pra não ficar criando um novo objeto a toda chamada
         area =  "imagem"
-        tipo = self.tipoCB.currentText()
         self.novoRelatorio.set_descricao(self.descricaoTE.toPlainText())
+        self.novoRelatorio.set_tipo(self.tipoCB.currentText())
         self.novoRelatorio.set_procedimentos(self.procedimentosTE.toPlainText())
         self.novoRelatorio.set_infraestrutura(self.getInfra())
         self.novoRelatorio.set_situacao(self.checkButtonFollowUp())
@@ -246,8 +249,39 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.caracteresLA.setText(str(abs(500 -len(caracteres))) + " caracteres não poderão ser vistos pelo cliente")
             self.caracteresLA.setStyleSheet("color: #FF0000")
 
+    def voltarChamado(self):
+        if self.relatorioNum < 3:
+            self.relatorioNum += 1
+            self.avancarChamadoPB.setEnabled(True)
+        if self.relatorioNum == 3:
+           self.voltarChamadoPB.setEnabled(False)
+        self.recuperarTexto()
+        
+
+    def avancarChamado(self):
+        if self.relatorioNum > 0:
+            self.relatorioNum -= 1
+            self.voltarChamadoPB.setEnabled(True)
+        if self.relatorioNum == 0:
+            self.avancarChamadoPB.setEnabled(False)
+        self.recuperarTexto()
+
     def recuperarTexto(self):
-        with open("relatorio1.txt",encoding='latin-1') as relatorioJson:
+        if self.relatorioNum == 0:
+            self.procedimentosTE.setText("")
+            self.descricaoTE.setText("")
+            sel.psi1CB.setChecked(False)
+            self.psi2CB.setChecked(False)
+            self.psi3CB.setChecked(False)
+            self.psi4TE.setPlaintText("")
+            self.psi5CB.setChecked(False)
+            self.necessarioFollowUp.setChecked(False)
+            self.infraNotOk.setChecked(False)
+            self.preencherInfraTE.setPlainText("")
+            self.avancarChamadoPB.setEnabled(False)
+            self.tipoCB.setCurrentText("Corretiva")
+            
+        with open("relatorio{}.txt".format(self.relatorioNum),encoding='latin-1') as relatorioJson:
            relatorioAnterior = json.load(relatorioJson) 
         print('vars:')
         for variavel in relatorioAnterior:
@@ -255,6 +289,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         # isso tá horroroso, tenho que melhorar depois
         self.procedimentosTE.setText(relatorioAnterior['procedimentos'])
         self.descricaoTE.setText(relatorioAnterior['descricao'])
+        self.tipoCB.setCurrentText(relatorioAnterior['tipo'])
         if relatorioAnterior['psi1'] == "Não":
             self.psi1CB.setChecked(False)
         else:
@@ -284,7 +319,6 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.infraNotOk.setChecked(True)
             self.preencherInfraTE.setPlainText(relatorioAnterior['infraestrutura'])
         
-
 
     def getInfra(self):
         # if self.infra == "Not Ok":

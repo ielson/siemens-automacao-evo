@@ -29,12 +29,14 @@ import os
 class Relatorio:
     ''' Classe para armazenar os objetos dos relatórios'''
 
-    def __init__(self, area='imagem', tipo='manutencao'):
+    def __init__(self, area='imagem'):
         self.area = area
-        self.tipo = tipo
 
     def set_descricao(self, descricao):
         self.descricao = descricao
+
+    def set_tipo(self, tipo):
+        self.tipo = tipo
 
     def set_procedimentos(self, procedimentos):
         self.procedimentos = procedimentos
@@ -70,7 +72,7 @@ class Relatorio:
         if not followup:
             with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
                 modelo = Template(arquivo.read())
-            self.dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas)
+            self.dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas, tipo=self.tipo)
             self.relatorio = modelo.substitute(self.dados)
             caracteres = self.contador_caracteres()
             return(self.relatorio, caracteres)
