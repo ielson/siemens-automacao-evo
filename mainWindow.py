@@ -216,6 +216,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.pecasSolicitadasTE.setVisible(True)
             self.indisponibilidadeLA.setVisible(True)
             self.indisponibilidadeTE.setVisible(True)
+            self.resize(1920, 930)
         self.situacao = 'finalizado'
         return self.situacao
 
