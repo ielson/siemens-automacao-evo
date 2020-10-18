@@ -90,6 +90,10 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.clipboard = QtWidgets.QApplication.clipboard()
         self.tipoCB.activated[str].connect(self.tipoEscolhido)
         self.ferramentasUtilizadas = []
+        self.buttonGroup = QtWidgets.QButtonGroup()
+        self.buttonGroup.addButton(self.tipoProblemaRB1, 1)
+        self.buttonGroup.addButton(self.tipoProblemaRB2, 2)
+        self.buttonGroup.addButton(self.tipoProblemaRB3, 3)
         if os.path.isfile('ferramentas.json'):
             with open('ferramentas.json', 'r') as ferramentasFile:
                 ferramentas = json.load(ferramentasFile)
@@ -125,7 +129,10 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         else:
             print(ferramenta)
 
-    
+    def checkTipoProblema(self):
+        print(self.buttonGroup.checkedButton().text())
+        return(self.buttonGroup.checkedButton().text())
+
     def checkButtonPecas(self):
         if self.pecasCB.isChecked():
             self.pecasTE.setVisible(True)
@@ -195,6 +202,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.indisponibilidadeTE.setVisible(False)
             self.resize(615, 930)
             print('depois do resize')
+            self.situacao = "Finalizado"
         else:
             self.pecasTE.setVisible(True)
             self.pecasLA.setVisible(True)
@@ -217,7 +225,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.indisponibilidadeLA.setVisible(True)
             self.indisponibilidadeTE.setVisible(True)
             self.resize(1920, 930)
-        self.situacao = 'finalizado'
+            self.situacao = "Não finalizado"
         return self.situacao
 
     def buttonCopiar(self):
@@ -237,7 +245,16 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
         self.novoRelatorio.set_psi(self.getPsi())
         self.novoRelatorio.set_pecas(self.getPecas())
         self.novoRelatorio.set_ferramentas(self.getFerramentas())
-        self.texto, caracteres = self.novoRelatorio.gerar_texto(False)
+        self.novoRelatorio.set_ferramentasEspeciais(self.ferramentasEspeciaisTE.toPlainText())
+        print("ferramentas especiais colocadas")
+        self.novoRelatorio.set_tipoProblema(self.checkTipoProblema())
+        self.novoRelatorio.set_planoAcao(self.planoAcaoTE.toPlainText())
+        self.novoRelatorio.set_tempoPrevisto(self.tempoTE.time().toString())
+        self.novoRelatorio.set_complexidade(self.complexidadeCB.currentText())
+        self.novoRelatorio.set_pecasTeste(self.pecasTesteTE.toPlainText())
+        self.novoRelatorio.set_pecasProxAtend(self.pecasSolicitadasTE.toPlainText())
+        self.novoRelatorio.set_pecasIndispensaveis(self.indisponibilidadeTE.toPlainText())
+        self.texto, caracteres = self.novoRelatorio.gerar_texto()
         corVermelha = QtGui.QColor(150, 146, 146)
         corBranca = QtGui.QColor(255, 255, 255)
         self.caracteresLA.setText(str(500 -len(caracteres)) + " chars ainda visíveis")

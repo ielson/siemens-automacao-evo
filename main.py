@@ -61,6 +61,31 @@ class Relatorio:
 
     def set_ferramentas(self, ferramentas):
         self.ferramentas = ferramentas
+        
+    def set_ferramentasEspeciais(self, ferramentasEspeciais):
+        self.ferramentasEspeciais = ferramentasEspeciais
+        print("ferramentas especiais setadas no main")
+
+    def set_tipoProblema(self, tipoProblema):
+        self.tipoProblema = tipoProblema
+
+    def set_planoAcao(self, planoAcao):
+        self.planoAcao = planoAcao
+
+    def set_tempoPrevisto(self, tempoPrevisto):
+        self.tempoPrevisto = tempoPrevisto
+
+    def set_complexidade(self, complexidade):
+        self.complexidade = complexidade
+    
+    def set_pecasTeste(self, pecasTeste):
+        self.pecasTeste = pecasTeste
+
+    def set_pecasProxAtend(self, pecasProxAtend):
+        self.pecasProxAtend = pecasProxAtend
+
+    def set_pecasIndispensaveis(self, pecasIndispensaveis):
+        self.pecasIndispensaveis = pecasIndispensaveis
 
     def contar_espacos(self):
         pass
@@ -68,14 +93,19 @@ class Relatorio:
     def completar_espacos(self):
         pass
 
-    def gerar_texto(self, followup):
-        if not followup:
+    def gerar_texto(self):
+        if self.situacao == "Finalizado":
             with open("modeloEncerramento.txt", encoding='latin-1') as arquivo:
                 modelo = Template(arquivo.read())
             self.dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas, tipo=self.tipo)
-            self.relatorio = modelo.substitute(self.dados)
-            caracteres = self.contador_caracteres()
-            return(self.relatorio, caracteres)
+        if self.situacao == "Não finalizado":
+            print("followup")
+            with open("modeloFollowup.txt", encoding='latin-1') as arquivo:
+                modelo = Template(arquivo.read())
+            self.dados = dict(descricao = self.descricao, procedimentos = self.procedimentos, infraestrutura = self.infraestrutura, conclusao=self.situacao, psi1=self.psi1, psi2=self.psi2, psi3=self.psi3, psi4=self.psi4, psi5=self.psi5, pecas=self.pecas, instrumentos=self.ferramentas, tipo=self.tipo, tipoProblema=self.tipoProblema, planoAcao=self.planoAcao, tempoPrevisto=self.tempoPrevisto, ferramentasEspeciais=self.ferramentasEspeciais, complexidadeAtendimento=self.complexidade, pecasTeste=self.pecasTeste, pecasProximoAtendimento=self.pecasProxAtend, pecasIndispensaveis=self.pecasIndispensaveis)
+        self.relatorio = modelo.substitute(self.dados)
+        caracteres = self.contador_caracteres()
+        return(self.relatorio, caracteres)
         
     def salvar_texto(self):
         for relatorioNum in range(3, 1, -1):
