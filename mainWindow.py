@@ -224,7 +224,7 @@ class MainWindow(QtWidgets.QWidget, Ui_Sigame):
             self.pecasSolicitadasTE.setVisible(True)
             self.indisponibilidadeLA.setVisible(True)
             self.indisponibilidadeTE.setVisible(True)
-            self.resize(1920, 930)
+            self.showMaximized()
             self.situacao = "Não finalizado"
         return self.situacao
 
